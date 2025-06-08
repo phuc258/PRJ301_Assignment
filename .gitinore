@@ -1,7 +1,0 @@
-# Ignore build output
-build/
-dist/
-
-# Ignore NetBeans generated files
-nbproject/
-
