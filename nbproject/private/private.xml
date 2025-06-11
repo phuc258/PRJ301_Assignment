@@ -3,15 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/controllers/SearchBookController.java</file>
+            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/dto/Book.java</file>
+            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/mylib/DBUtils.java</file>
+            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/web/Pages/Error.jsp</file>
+            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/web/Pages/Login.jsp</file>
             <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/dao/BookDAO.java</file>
             <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/dao/UserDAO.java</file>
             <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/controllers/LogoutController.java</file>
-            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/controllers/SearchBookController.java</file>
-            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/web/Pages/UserDashboard.jsp</file>
             <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/dto/User.java</file>
-            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/controllers/SearchUserController.java</file>
-            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/dto/Book.java</file>
+            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/web/Pages/UserDashboard.jsp</file>
+            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/web/Pages/GuestDashboard.jsp</file>
             <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/src/java/controllers/LoginController.java</file>
+            <file>file:/D:/Desktop/Summer2025/PRJ-Assignment/OnlineLibrary/web/Pages/AdminDashboard.jsp</file>
         </group>
     </open-files>
 </project-private>
