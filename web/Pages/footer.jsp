@@ -1,6 +1,6 @@
 <%-- 
-    Document   : UserDashboard
-    Created on : Jun 7, 2025, 2:43:08 PM
+    Document   : footer
+    Created on : Jun 14, 2025, 12:39:06 PM
     Author     : SE190585
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>User Page</title>
+        <title>Footer Page</title>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-        <h1>HelloWorld</h1>
     </body>
 </html>
