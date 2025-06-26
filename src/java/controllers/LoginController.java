@@ -4,12 +4,15 @@
  */
 package controllers;
 
+import dao.UserDAO;
+import dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -17,7 +20,6 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class LoginController extends HttpServlet {
 
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -39,7 +41,33 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String email = request.getParameter("txtemail");
+        String password = request.getParameter("txtpassword");
+
+        PrintWriter out = response.getWriter();
+        if (email != null && password != null) {
+            //check email trung
+            UserDAO d = new UserDAO();
+            User us = d.getUser(email, password);
+            if (us != null && us.getStatus().endsWith("active")) {
+                //luu us vao session de co dâta cho cac tinh nang: welcome, logout, change profile
+                HttpSession s = request.getSession();
+                s.setAttribute("USER", us);
+                String role = us.getRole();
+                if (role.equalsIgnoreCase("admin")) {
+                    //de welcome: coming soon
+                    response.sendRedirect("AdminDashboard.jsp");
+                } else {
+
+                    response.sendRedirect("UserDashboard.jsp");
+                }
+            } else {
+                String s = "<h1> email or password is invalid !!</h1>";
+                request.setAttribute("ERROR", s);
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
+
+        }
     }
 
     @Override
