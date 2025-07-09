@@ -17,13 +17,17 @@
     <body>
         <%
             int Id = Integer.parseInt(request.getParameter("txtid"));
-            Book bookEdit =  (new BookDAO()).getBookById(Id);
+            Book bookEdit = (new BookDAO()).getBookById(Id);
             if (bookEdit == null) {
                 request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
             } else {%>
-        <a href="AdminDashboard.jsp">AdminDashboard</a>
-        <form action="EditBook" style=" padding: 5%" method="post" accept-charset="utf-8">
-            <input type="hidden" name="txtid" value="<%= bookEdit.getId() %>" />
+        <form action="MainController" method="post">
+            <input type="hidden" name="action" value="adminDashboard" />
+            <button class="btn">🏠 Về Dashboard</button>
+        </form>
+        <form action="MainController" style=" padding: 5%" method="post" accept-charset="utf-8">
+            <input type="hidden" name="action" value="editBookController" />
+            <input type="hidden" name="txtid" value="<%= bookEdit.getId()%>" />
             <p>title<input type="text" name="txttitle" value="<%= bookEdit.getTitle()%>" ></p>
             <p>author<input type="text" name="txtauthor" value="<%= bookEdit.getAuthor()%>"></p>
             <p>category<input type="text" name="txtcategory" value="<%= bookEdit.getCategory()%>"></p>
@@ -34,7 +38,7 @@
 
             <p><input type="submit" name="btn" value="submit"></p>
         </form>
-            ${requestScope.message}
-            <%}%>
+        ${requestScope.message}
+        <%}%>
     </body>
 </html>

@@ -18,8 +18,10 @@
                 response.sendRedirect("index.jsp");
             }
         %>
-        <a href="AdminDashboard.jsp">Home admin</a>
-        <h2>Cấu hình hệ thống</h2>
+        <form action="MainController" method="post">
+            <input type="hidden" name="action" value="adminDashboard" />
+            <button class="btn">🏠 Về Dashboard</button>
+        </form>        <h2>Cấu hình hệ thống</h2>
         <form action="UpdateConfigController" method="post">
             <table border="1">
                 <tr>

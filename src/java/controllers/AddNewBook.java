@@ -42,29 +42,49 @@ public class AddNewBook extends HttpServlet {
         String message = "";
         String title = request.getParameter("txttitle").trim();
         int txtpublished_year = Integer.parseInt(request.getParameter("txtpublished_year"));
-        if (bd.checkBook(title,txtpublished_year)) {
+        if (bd.checkBook(title, txtpublished_year)) {
             message = "Da co sach nay trong database";
             request.setAttribute("mess", message);
             request.getRequestDispatcher("AddNewBook.jsp").forward(request, response);
-        }else{
-        String author = request.getParameter("txtauthor").trim();
-        String category = request.getParameter("txtcategory").trim();
-        String isbn = request.getParameter("txtisbn").trim();
-        int published_year = Integer.parseInt(request.getParameter("txtpublished_year").trim());
-        int total_copies = Integer.parseInt(request.getParameter("txttotal_copies").trim());
-        String status = request.getParameter("txtstatus");
-        Book newBook = new Book(0,title, author, isbn, category, published_year, total_copies, total_copies, status);
-      int t=  bd.addNewBook(newBook);
-         message = "Add sucess book:" + title;
-        request.setAttribute("mess", message);
-        request.getRequestDispatcher("AddNewBook.jsp").forward(request, response);
+        } else {
+            String author = request.getParameter("txtauthor").trim();
+            String category = request.getParameter("txtcategory").trim();
+            String isbn = request.getParameter("txtisbn").trim();
+            int published_year = Integer.parseInt(request.getParameter("txtpublished_year").trim());
+            int total_copies = Integer.parseInt(request.getParameter("txttotal_copies").trim());
+            String status = request.getParameter("txtstatus");
+            Book newBook = new Book(0, title, author, isbn, category, published_year, total_copies, total_copies, status);
+            int t = bd.addNewBook(newBook);
+            message = "Add sucess book:" + title;
+            request.setAttribute("mess", message);
+            request.getRequestDispatcher("AddNewBook.jsp").forward(request, response);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        BookDAO bd = new BookDAO();
+        String message = "";
+        String title = request.getParameter("txttitle").trim();
+        int txtpublished_year = Integer.parseInt(request.getParameter("txtpublished_year"));
+        if (bd.checkBook(title, txtpublished_year)) {
+            message = "Da co sach nay trong database";
+            request.setAttribute("mess", message);
+            request.getRequestDispatcher("AddNewBook.jsp").forward(request, response);
+        } else {
+            String author = request.getParameter("txtauthor").trim();
+            String category = request.getParameter("txtcategory").trim();
+            String isbn = request.getParameter("txtisbn").trim();
+            int published_year = Integer.parseInt(request.getParameter("txtpublished_year").trim());
+            int total_copies = Integer.parseInt(request.getParameter("txttotal_copies").trim());
+            String status = request.getParameter("txtstatus");
+            Book newBook = new Book(0, title, author, isbn, category, published_year, total_copies, total_copies, status);
+            int t = bd.addNewBook(newBook);
+            message = "Add sucess book:" + title;
+            request.setAttribute("mess", message);
+            request.getRequestDispatcher("AddNewBook.jsp").forward(request, response);
+        }
     }
 
     @Override

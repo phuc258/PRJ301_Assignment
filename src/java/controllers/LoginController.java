@@ -56,10 +56,11 @@ public class LoginController extends HttpServlet {
                 String role = us.getRole();
                 if (role.equalsIgnoreCase("admin")) {
                     //de welcome: coming soon
-                    response.sendRedirect("AdminDashboard.jsp");
+                    request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
                 } else {
 
-                    response.sendRedirect("UserDashboard.jsp");
+                    request.getRequestDispatcher("UserDashboard.jsp").forward(request, response);
+
                 }
             } else {
                 String s = "<h1> email or password is invalid !!</h1>";

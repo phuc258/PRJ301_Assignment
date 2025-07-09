@@ -18,9 +18,6 @@ import mylib.DBUtils;
  * @author toila
  */
 public class BookDAO {
-
-    private ArrayList<Book> list = new ArrayList<>();
-
     public BookDAO() {
     }
 

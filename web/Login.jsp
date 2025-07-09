@@ -12,10 +12,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="LoginController" method="post">
+        <form action="MainController" method="post">
+            <input type="hidden" name="action" value="loginController"/>
             <p><input type="text" name="txtemail"/>*</p>
             <p><input type="password" name="txtpassword"/>*</p>
-            <p><input type="submit" value="login"/></p>
+            <p><input type="submit" value="Login"/></p>
         </form>   
         <%
             if (request.getAttribute("error") != null){

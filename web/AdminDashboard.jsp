@@ -73,23 +73,31 @@
             }
         </style>
     </head>
-     <body>
+    <body>
         <%
             User us = (User) session.getAttribute("USER");
             if (us == null) {
                 response.sendRedirect("index.jsp");
             } else if (!us.getRole().equals("admin")) {
-               response.sendRedirect("index.jsp");
+                response.sendRedirect("index.jsp");
             } else { %>
 
 
         <div class="sidebar">
             <h2>Admin Thư viện</h2>
             <a href="#">📚 Quản lý sách</a>
-            <a href="QuanliUser.jsp">👤 Quản lý người dùng</a>
-            <a href="#">📝 Đơn thuê</a>
+            <form action="MainController" method="POST">
+                <input type="hidden" name="action" value="quanliuser" />
+                <input type="submit" value="👤 Quản lý người dùng" />
+
+            </form>
+            <a href="BorrowRequestController">📝 Đơn thuê</a>
             <a href="OverdueBooksController">📝 overdue </a>
-            <a href="systemConfig.jsp">⚙️ Cài đặt</a>
+            <form action="MainController" method="POST">
+                <input type="hidden" name="action" value="setupconfig" />
+                <input type="submit" value="⚙️ Cài đặt Config" />
+
+            </form>
             <a href="AdminStatisticsServlet">⚙️ statis</a>
             <a href="LogoutController">🔓 Đăng xuất</a>
 
@@ -97,12 +105,16 @@
 
         <div class="main">
             <div class="header">📚 Danh sách Sách</div>
-            <form>
+            <form action="MainController" method="post">
                 <h4> Name Want to find </h4>
                 <input type="text" name="nameFindBook" value="${param.nameFindBook}" />
+                <input type="hidden" name="action" value="findBook" />
                 <input type="submit" value="find" />
             </form>
-            <button class="btn" onclick="location.href = 'AddNewBook.jsp'">➕ Thêm Sách Mới</button>
+            <form action="MainController" method="post" style="display:inline;">
+                <input type="hidden" name="action" value="addnewbook" />
+                <button type="submit" class="btn">➕ Thêm Sách Mới</button>
+            </form>
 
             <h4> ${requestScope.attributeMessage} </h4>
 
@@ -123,13 +135,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% BookDAO bookdao = new BookDAO();
-                        String namefind = (String) request.getParameter("nameFindBook");
-                        request.setAttribute("namefind", namefind);
-                        if (namefind == null) {
-                            namefind = "";
+                    <%
+                        ArrayList<Book> list = (ArrayList<Book>) request.getAttribute("listBookBSearch");
+                        if (list == null) {
+                            request.getRequestDispatcher("SearchBookController").forward(request, response);
                         }
-                        ArrayList<Book> list = bookdao.getListBookByName(namefind);
                         int count = 1;
                         for (Book b : list) {%>
                     <tr>
@@ -146,20 +156,22 @@
 
 
                         <td>
-                            <form action="editBook.jsp">       
+                            <form action="MainController" method="post">       
                                 <input type="hidden" name="txtid" value="<%= b.getId()%>" />
+                                <input type="hidden" name="action" value="editBook" />
                                 <button class="btn">✏️ Sửa</button>
                             </form>
 
 
 
-                            <form method="post" style="display:inline;" action="DeleteBook" onsubmit="return confirm('Bạn chắc chưa?')">
+                            <form method="post" style="display:inline;" action="MainController" onsubmit="return confirm('Bạn chắc chưa?')">
+                                <input type="hidden" name="action" value="deletebook" />
                                 <input type="hidden" name="xoa_Name" value="<%= b.getTitle()%>" />
                                 <input type="hidden" name="xoa_Year" value="<%= b.getPublished_year()%>" />
                                 <%
-                                 String buttonLabel = b.getStatus().equals("block") ? "Unlock" : "Lock";
-                                 String buttonValue = b.getStatus().equals("block") ? "Unlock" : "Lock";
-                                    %>
+                                    String buttonLabel = b.getStatus().equals("block") ? "Unlock" : "Lock";
+                                    String buttonValue = b.getStatus().equals("block") ? "Unlock" : "Lock";
+                                %>
                                 <button name="deleteBookButton" value="<%= buttonValue%>" class="btn" style="background-color: #e74c3c;" > <%= buttonLabel%></button>
                             </form>               
                         </td>

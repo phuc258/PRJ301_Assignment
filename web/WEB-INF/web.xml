@@ -20,6 +20,14 @@
         <servlet-name>SearchUserController</servlet-name>
         <servlet-class>controllers.SearchUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BorrowRequestController</servlet-name>
+        <servlet-class>controllers.BorrowRequestController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OverdueBooksController</servlet-name>
+        <servlet-class>controllers.OverdueBooksController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>SearchUserController</servlet-name>
         <url-pattern>/SearchUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorrowRequestController</servlet-name>
+        <url-pattern>/BorrowRequestController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OverdueBooksController</servlet-name>
+        <url-pattern>/OverdueBooksController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
