@@ -16,23 +16,24 @@
     </head>
     <body>
         <%
-User us = (User)session.getAttribute("USER");
-if(us==null){
-response.sendRedirect("index.jsp");
-}else{
+            User us = (User) session.getAttribute("USER");
+            if (us == null) {
+                response.sendRedirect("index.jsp");
+            } else {
         %>
         <a href="AdminDashboard.jsp">Home</a>
         <form method="get">
             <input type="text" name="findEmail" value="" />
             <input type="submit" value="submit" />
         </form>
-        <%     
+        <%
             String findEmail = "";
-            if (request.getParameter("findEmail") != null)
-             findEmail = request.getParameter("findEmail");
+            if (request.getParameter("findEmail") != null) {
+                findEmail = request.getParameter("findEmail");
+            }
             UserDAO dao = new UserDAO();
             ArrayList<User> list = dao.findUsersByEmail(findEmail);
-            
+
         %>  
         <table>
             <thead>
@@ -46,7 +47,7 @@ response.sendRedirect("index.jsp");
                 </tr>
             </thead>
             <tbody>
-                <% for (User u : list) { %>
+                <% for (User u : list) {%>
                 <tr>
                     <td><%= u.getId()%></td>
                     <td><%= u.getName()%></td>
@@ -55,14 +56,14 @@ response.sendRedirect("index.jsp");
                     <td><%= u.getRole()%></td>
                     <td><%= u.getStatus()%></td>
                     <td>  
-                        <form action="ManagerUsers">
-                            <input type="hidden" name="emailUser" value="<%= u.getEmail() %>"/>
-                            <button class="btn" value="xoa" name="yeucau" style="background-color: #e74c3c;">🗑️ Xóa</button>
+                        <form action="MainController">
+                            <input type="hidden" name="emailUser" value="<%= u.getEmail()%>"/>
+                            <input type="hidden" name="action" value="ManagerUsers"/>
                             <%
                                 String buttonLabel = u.getStatus().equalsIgnoreCase("blocked") ? "UnBan" : "Ban";
                                 String buttonValue = u.getStatus().equalsIgnoreCase("blocked") ? "moKhoa" : "ban";
                             %>
-                            <button class="btn" value="<%= buttonValue %>" name="yeucau"><%= buttonLabel %></button>
+                            <button class="btn" value="<%= buttonValue%>" name="yeucau"><%= buttonLabel%></button>
 
                         </form>
 
@@ -71,6 +72,6 @@ response.sendRedirect("index.jsp");
                 <%} %>        
             </tbody>
         </table>
-                <%} %>
+        <%}%>
     </body>
 </html>

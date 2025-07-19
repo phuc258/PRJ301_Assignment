@@ -2,27 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/ManagerUsers.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/mylib/DBUtils.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/editBook.jsp</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/index.jsp</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/AddNewBook.jsp</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dto/OverdueRecord.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dao/BookDAO.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dao/BorrowRecordDAO.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/systemConfig.jsp</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/EditBook.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/LoginController.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/borrow_requests.jsp</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/OverdueBooksController.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/AdminDashboard.jsp</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dao/BorrowRequestDAO.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/BorrowRequestController.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/MainController.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/Login.jsp</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dto/BorrowRequest.java</file>
-            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/overdue_books.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -66,8 +66,14 @@ public class MainController extends HttpServlet {
                 case "quanliuser":
                     request.getRequestDispatcher("QuanliUser.jsp").forward(request, response);
                     break;
+                case "ManagerUsers":
+                    request.getRequestDispatcher("ManagerUsers").forward(request, response);
+                    break;
                 case "setupconfig":
                     request.getRequestDispatcher("systemConfig.jsp").forward(request, response);
+                    break;
+                case "updateInventory":
+                    request.getRequestDispatcher("InventoryController").forward(request, response);
                     break;
                 default:
                     response.sendError(HttpServletResponse.SC_NOT_FOUND);

@@ -18,11 +18,13 @@ import mylib.DBUtils;
  * @author toila
  */
 public class BookDAO {
+
     public BookDAO() {
     }
 
     public ArrayList<Book> getListBookByName(String name) {
         ArrayList<Book> result = new ArrayList<>();
+       
         Connection cn = null;
         try {
             cn = DBUtils.getConnection();
@@ -55,7 +57,7 @@ public class BookDAO {
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String sql = "Update [dbo].[books] set status = 'block' where title = '" + title + "'" + " AND published_year = " +   year;
+                String sql = "Update [dbo].[books] set status = 'block' where title = '" + title + "'" + " AND published_year = " + year;
                 PreparedStatement ps = cn.prepareStatement(sql);
                 int rs = ps.executeUpdate();
 
@@ -74,16 +76,17 @@ public class BookDAO {
 
         return 1;
     }
-    public int unlockBookByTitle (String title, int year){
-        int result = 0 ;
-        
-                Connection cn = null;
+
+    public int unlockBookByTitle(String title, int year) {
+        int result = 0;
+
+        Connection cn = null;
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String sql = "Update [dbo].[books] set status = 'active' where title = '" + title + "'" + " AND published_year = " +   year;
+                String sql = "Update [dbo].[books] set status = 'active' where title = '" + title + "'" + " AND published_year = " + year;
                 PreparedStatement ps = cn.prepareStatement(sql);
-                 result = ps.executeUpdate();
+                result = ps.executeUpdate();
 
             }
         } catch (Exception e) {
@@ -99,6 +102,7 @@ public class BookDAO {
         }
         return result;
     }
+
     public int addNewBook(Book b) {
         int result = 0;
 
@@ -243,7 +247,38 @@ public class BookDAO {
 
         return result;
     }
- /*   public ArrayList<OverdueBook> getOverdueBooks() throws SQLException {
+
+    //-----------------------------------------------------------------------------------
+    public void updateBookTotal(int bookId, int quantity) throws Exception {
+
+        Connection cn = null;
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                String sql = "update books set total_copies = (select total_copies from books where id = ?) + ? where id = ?";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setInt(1, bookId);
+                ps.setInt(2, quantity);
+                ps.setInt(3, bookId);
+                int rs = ps.executeUpdate();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    //-----------------------------------------------------------------------------------
+    /*   public ArrayList<OverdueBook> getOverdueBooks() throws SQLException {
     ArrayList<OverdueBook> list = new ArrayList<>();
     
    
@@ -282,5 +317,5 @@ public class BookDAO {
 
     return list;
 }
-*/
+     */
 }

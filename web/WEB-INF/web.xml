@@ -28,6 +28,14 @@
         <servlet-name>OverdueBooksController</servlet-name>
         <servlet-class>controllers.OverdueBooksController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>InventoryController</servlet-name>
+        <servlet-class>controllers.InventoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerUsers</servlet-name>
+        <servlet-class>controllers.ManagerUsers</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>OverdueBooksController</servlet-name>
         <url-pattern>/OverdueBooksController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InventoryController</servlet-name>
+        <url-pattern>/InventoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerUsers</servlet-name>
+        <url-pattern>/ManagerUsers</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

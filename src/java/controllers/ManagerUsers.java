@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controllers;
 
 import dao.UserDAO;
-import dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+
 
 public class ManagerUsers extends HttpServlet {
 
@@ -40,16 +40,13 @@ public class ManagerUsers extends HttpServlet {
         String yeucau = request.getParameter("yeucau");
         String emailUser = request.getParameter("emailUser");
         String message = "";
-        if (yeucau.equals("xoa")) {
-            int check = deleteUserByEmail(emailUser);
-            response.sendRedirect("QuanliUser.jsp");
-        } else if (yeucau.equals("ban")) {
+       if (yeucau.equals("ban")) {
             banAccByEmail(emailUser,1);
-            response.sendRedirect("QuanliUser.jsp");
         } else if (yeucau.equals("moKhoa")) {
             banAccByEmail(emailUser,0);
-            response.sendRedirect("QuanliUser.jsp");
         }
+        
+        request.getRequestDispatcher("QuanliUser.jsp").forward(request, response);
     }
 
     @Override
@@ -76,5 +73,6 @@ public class ManagerUsers extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }
