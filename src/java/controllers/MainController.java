@@ -17,70 +17,91 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author SE190585
  */
 public class MainController extends HttpServlet {
+    
+    private static final String FIST = "index.jsp";
+    private static final String LOGIN = "Login.jsp";
+    private static final String LOGIN_CONTROLLER = "LoginController";
+    private static final String SEARCH_BOOK_CONTROLLER = "SearchBookController";
+    private static final String ADD_NEW_BOOK_VIEW = "AddNewBook.jsp";
+    private static final String ADD_NEW_BOOK_CONTROLLER = "AddNewBook";
+    private static final String MANAGER_BOOK_VIEW = "AdminDashboard.jsp";
+    private static final String EDIT_BOOK_VIEW = "editBook.jsp";
+    private static final String EDIT_BOOK_CONTROLLER = "EditBook";
+    private static final String EDIT_BOOK_DElETE = "DeleteBook";
+    private static final String MANAGER_USER_VIEW = "QuanliUser.jsp";
+    private static final String MANAGER_USER_CONTROLLER = "ManagerUsers";
+    private static final String FIND_USER = "FindUser";
+    private static final String CONFIG_VIEW = "UpdateConfigController";
+    private static final String INVENTORY_UPDATE = "InventoryController";
+    private static final String THANH_TOAN_TIEN_PHAT = "ThanhToanTienPhat";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         response.setContentType("text/html;charset=UTF-8");
+        String url = FIST;
         try {
             String action = request.getParameter("action");
-            if (action == null) {
-                action = "index"; // mặc định nếu không có action
-            }
+
             switch (action) {
-                case "index":
-                    request.getRequestDispatcher("index.jsp").forward(request, response);
-                    break;
+
                 case "search":
-                    request.getRequestDispatcher("SearchBookController").forward(request, response);
+                    url = SEARCH_BOOK_CONTROLLER;
                     break;
-                // thêm các case khác tùy theo yêu cầu
                 case "login":
-                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                    url = LOGIN;
                     break;
                 case "loginController":
-                    request.getRequestDispatcher("LoginController").forward(request, response);
+                    url = LOGIN_CONTROLLER;
                     break;
-
                 case "findBook":
-                    request.getRequestDispatcher("SearchBookController").forward(request, response);
+                    url = SEARCH_BOOK_CONTROLLER;
                     break;
                 case "addnewbook":
-                    request.getRequestDispatcher("AddNewBook.jsp").forward(request, response);
+                    url = ADD_NEW_BOOK_VIEW;
                     break;
                 case "addnewbookcontroller":
-                    request.getRequestDispatcher("AddNewBook").forward(request, response);
+                    url = ADD_NEW_BOOK_CONTROLLER;
                     break;
                 case "adminDashboard":
                     request.setAttribute("listBookBSearch", new BookDAO().getListBookByName(""));
-                    request.getRequestDispatcher("AdminDashboard.jsp").forward(request, response);
+                    url = MANAGER_BOOK_VIEW;
                     break;
                 case "editBook":
-                    request.getRequestDispatcher("editBook.jsp").forward(request, response);
+                    url = EDIT_BOOK_VIEW;
                     break;
                 case "editBookController":
-                    request.getRequestDispatcher("EditBook").forward(request, response);
+                    url = EDIT_BOOK_CONTROLLER;
                     break;
                 case "deletebook":
-                    request.getRequestDispatcher("DeleteBook").forward(request, response);
+                    url = EDIT_BOOK_DElETE;
                     break;
                 case "quanliuser":
-                    request.getRequestDispatcher("QuanliUser.jsp").forward(request, response);
+                    url = MANAGER_USER_VIEW;
                     break;
                 case "ManagerUsers":
-                    request.getRequestDispatcher("ManagerUsers").forward(request, response);
+                    url = MANAGER_USER_CONTROLLER;
                     break;
                 case "setupconfig":
-                    request.getRequestDispatcher("systemConfig.jsp").forward(request, response);
+                    url = CONFIG_VIEW;
                     break;
                 case "updateInventory":
-                    request.getRequestDispatcher("InventoryController").forward(request, response);
+                    url = INVENTORY_UPDATE;
+                    break;
+                case "Find User":
+                    url = FIND_USER;
+                    break;
+                case "ThanhToanTienPhat":
+                    url = THANH_TOAN_TIEN_PHAT;
                     break;
                 default:
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                    throw new AssertionError();
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log("error at MainController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

@@ -2,32 +2,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controllers;
 
+import dao.UserDAO;
+import dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
-/**
- *
- * @author SE190585
- */
-public class LogoutController extends HttpServlet {
-   
+@WebServlet(name = "FindUser", urlPatterns = {"/FindUser"})
+public class FindUser extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            request.getSession().invalidate();
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        try ( PrintWriter out = response.getWriter()) {
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            String findEmail = "";
+            if (request.getParameter("findEmail") != null) {
+                findEmail = request.getParameter("findEmail");
+            }
+            UserDAO dao = new UserDAO();
+            ArrayList<User> list = dao.findUsersByEmail(findEmail);
+            request.getSession().setAttribute("findEmail", findEmail);
+            request.setAttribute("listUser", list);
+            request.getRequestDispatcher("QuanliUser.jsp").forward(request, response);
         }
     }
 

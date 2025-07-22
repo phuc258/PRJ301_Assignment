@@ -8,70 +8,65 @@
 <%@page import="java.util.*" %> 
 <%@page import="dto.User" %>
 <%@page import="dao.UserDAO" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Quan Li User</title>
     </head>
     <body>
-        <%
-            User us = (User) session.getAttribute("USER");
-            if (us == null) {
-                response.sendRedirect("index.jsp");
-            } else {
-        %>
-        <a href="AdminDashboard.jsp">Home</a>
-        <form method="get">
-            <input type="text" name="findEmail" value="" />
-            <input type="submit" value="submit" />
+        <c:set var="USER" value="${sessionScope.USER}"/>
+        <c:if test="${empty sessionScope.USER}">
+            <jsp:forward page="index.jsp"/>
+        </c:if>
+        <a href="MainController?action=adminDashboard">Home</a>
+        <form method="post" action="MainController">
+            <input type="text" name="findEmail" value="${sessionScope.findEmail}" />
+            <input type="submit" value="Find User" name="action" />
         </form>
-        <%
-            String findEmail = "";
-            if (request.getParameter("findEmail") != null) {
-                findEmail = request.getParameter("findEmail");
-            }
-            UserDAO dao = new UserDAO();
-            ArrayList<User> list = dao.findUsersByEmail(findEmail);
 
-        %>  
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>password</th>
-                    <th>role</th>
-                    <th>status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% for (User u : list) {%>
-                <tr>
-                    <td><%= u.getId()%></td>
-                    <td><%= u.getName()%></td>
-                    <td><%= u.getEmail()%></td>
-                    <td><%= u.getPassword()%></td>
-                    <td><%= u.getRole()%></td>
-                    <td><%= u.getStatus()%></td>
-                    <td>  
-                        <form action="MainController">
-                            <input type="hidden" name="emailUser" value="<%= u.getEmail()%>"/>
-                            <input type="hidden" name="action" value="ManagerUsers"/>
-                            <%
-                                String buttonLabel = u.getStatus().equalsIgnoreCase("blocked") ? "UnBan" : "Ban";
-                                String buttonValue = u.getStatus().equalsIgnoreCase("blocked") ? "moKhoa" : "ban";
-                            %>
-                            <button class="btn" value="<%= buttonValue%>" name="yeucau"><%= buttonLabel%></button>
+        <c:set var="listUser" value="${requestScope.listUser}"/>
+        <c:if test="${not empty listUser}" >
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>name</th>
+                        <th>email</th>
+                        <th>password</th>
+                        <th>role</th>
+                        <th>status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="u" items="${listUser}">
+                        <tr>
+                            <td>${u.id}</td>
+                            <td>${u.name}</td>
+                            <td>${u.email}</td>
+                            <td>${u.password}</td>
+                            <td>${u.role}</td>
+                            <td>${u.status}</td>
+                            <td>  
+                                <form action="MainController" method="post">
+                                    <input type="hidden" name="emailUser" value="${u.email}"/>
+                                    <input type="hidden" name="action" value="ManagerUsers"/>
+                                    <c:set var="buttonLabel" 
+                                           value="${fn:toLowerCase(u.status) eq 'blocked' ? 'UnBan' : 'Ban'}"/>
+                                    <c:set var="buttonValue" 
+                                           value="${fn:toLowerCase(u.status) eq 'blocked' ? 'moKhoa' : 'ban'}"/>
 
-                        </form>
+                                    <button class="btn" value="${buttonValue}" name="yeucau">${buttonLabel}</button>
 
-                    </td>
-                </tr>
-                <%} %>        
-            </tbody>
-        </table>
-        <%}%>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </c:if>
     </body>
 </html>

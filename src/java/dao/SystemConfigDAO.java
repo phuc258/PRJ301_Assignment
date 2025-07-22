@@ -8,6 +8,7 @@ import dto.Config;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import mylib.DBUtils;
 
@@ -26,16 +27,16 @@ public class SystemConfigDAO {
                 String sql = "select [id],[config_key],[config_value],[description] from system_config";
                 PreparedStatement ps = cn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                int id = rs.getInt("id");
-                String config_key = rs.getString("config_key");
-                String config_value = rs.getString("config_value");
-                String description = "";
-                if (rs.getString("description") != null) {
-                    description = rs.getString("description");
-                }
-                Config c = new Config(id, config_key, config_value, description);
-                result.add(c);
+                while (rs.next()) {
+                    int id = rs.getInt("id");
+                    String config_key = rs.getString("config_key");
+                    String config_value = rs.getString("config_value");
+                    String description = "";
+                    if (rs.getString("description") != null) {
+                        description = rs.getString("description");
+                    }
+                    Config c = new Config(id, config_key, config_value, description);
+                    result.add(c);
                 }
             }
         } catch (Exception e) {
@@ -59,6 +60,22 @@ public class SystemConfigDAO {
             ps.setString(1, value);
             ps.setString(2, key);
             ps.executeUpdate();
+           if (key.equals("default_borrow_duration_days")){
+               int default_borrow_duration_days = Integer.parseInt(value);
+               updateBorrow_dueDate(default_borrow_duration_days);
+               BorrowRecordDAO brd = new BorrowRecordDAO();
+               brd.updateStatus();
+           }
         }
     }
+
+    private void updateBorrow_dueDate(int value) throws ClassNotFoundException, SQLException {
+        String sql = "UPDATE borrow_records\n"
+                + "SET due_date = DATEADD(day, ?, borrow_date);";
+        try ( Connection con = DBUtils.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, value);
+            ps.executeUpdate();
+        }
+    }
+    
 }

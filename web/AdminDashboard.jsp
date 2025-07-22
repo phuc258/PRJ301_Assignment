@@ -4,12 +4,14 @@
     Author     : toila
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@page import="java.util.*" %> 
 <%@page import="dto.User" %>
 <%@page import="dao.UserDAO" %>
 <%@page import="dto.Book" %>
 <%@page import="dao.BookDAO" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
     <head>
@@ -74,13 +76,10 @@
         </style>
     </head>
     <body>
-        <%
-            User us = (User) session.getAttribute("USER");
-            if (us == null) {
-                response.sendRedirect("index.jsp");
-            } else if (!us.getRole().equals("admin")) {
-                response.sendRedirect("index.jsp");
-            } else { %>
+        <c:set var="USER" value="${sessionScope.USER}"/>
+        <c:if test="${empty sessionScope.USER}">
+            <jsp:forward page="index.jsp"/>
+        </c:if>
 
 
         <div class="sidebar">
@@ -137,53 +136,52 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%
-                        ArrayList<Book> list = (ArrayList<Book>) request.getAttribute("listBookBSearch");
-                        if (list == null) {
-                            request.getRequestDispatcher("SearchBookController").forward(request, response);
-                        }
-                        int count = 1;
-                        for (Book b : list) {%>
-                    <tr>
-
-                        <td><%= count++%> </td>
-                        <td><%= b.getId()%></td>
-                        <td><%= b.getTitle()%></td>
-                        <td><%= b.getAuthor()%></td>
-                        <td><%= b.getCategory()%></td>
-                        <td><%= b.getTotal_copies()%></td>
-                        <td><%= b.getAvailable_copies()%></td>
-                        <td><%= b.getPublished_year()%></td>
-                        <td><%= b.getIsbn()%></td>
+                    <c:set var="list" value="${requestScope.listBookBSearch}"/>
+                    <c:if test="${ empty list}">
+                        <jsp:forward page="SearchBookController"/>
+                    </c:if>
+                    <c:forEach var="b" items="${list}" varStatus="status">
 
 
-                        <td>
-                            <form action="MainController" method="post">       
-                                <input type="hidden" name="txtid" value="<%= b.getId()%>" />
-                                <input type="hidden" name="action" value="editBook" />
-                                <button class="btn">✏️ Sửa</button>
-                            </form>
+                        <tr>
+
+                            <td>${status.count}</td>
+                            <td>${b.id}</td>
+                            <td>${b.title}</td>
+                            <td>${b.author}</td>
+                            <td>${b.category}</td>
+                            <td>${b.total_copies}</td>
+                            <td>${b.available_copies}</td>
+                            <td>${b.published_year}</td>
+                            <td>${b.isbn}</td>
 
 
 
-                            <form method="post" style="display:inline;" action="MainController" onsubmit="return confirm('Bạn chắc chưa?')">
-                                <input type="hidden" name="action" value="deletebook" />
-                                <input type="hidden" name="xoa_Name" value="<%= b.getTitle()%>" />
-                                <input type="hidden" name="xoa_Year" value="<%= b.getPublished_year()%>" />
-                                <%
-                                    String buttonLabel = b.getStatus().equals("block") ? "Unlock" : "Lock";
-                                    String buttonValue = b.getStatus().equals("block") ? "Unlock" : "Lock";
-                                %>
-                                <button name="deleteBookButton" value="<%= buttonValue%>" class="btn" style="background-color: #e74c3c;" > <%= buttonLabel%></button>
-                            </form>               
-                        </td>
-                    </tr>
-                    <% }%>
+                            <td>
+                                <form action="MainController" method="post">       
+                                    <input type="hidden" name="txtid" value="${b.id}" />
+                                    <input type="hidden" name="action" value="editBook" />
+                                    <button class="btn">✏️ Sửa</button>
+                                </form>
+
+
+
+                                <form method="post" style="display:inline;" action="MainController" onsubmit="return confirm('Bạn chắc chưa?')">
+                                    <input type="hidden" name="action" value="deletebook" />
+                                    <input type="hidden" name="xoa_Name" value="${b.title}" />
+                                    <input type="hidden" name="xoa_Year" value="${b.published_year}" />
+
+                                    <c:set var="buttonLabel" value="${b.status eq 'block' ? 'Unlock' : 'Lock'}"/>
+                                    <c:set var="buttonValue" value="${buttonLabel}"/>                                    
+                                    <button name="deleteBookButton" value="${buttonValue}" class="btn" style="background-color: #e74c3c;" > ${buttonLabel}</button>
+                                </form>               
+                            </td>
+                        </tr>
+                    </c:forEach>
 
 
                 </tbody>
             </table>
         </div>
-        <% }%>
     </body>
 </html>

@@ -5,22 +5,20 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Book Manager</title>
     </head>
      <body>
-        <%
-            User us = (User) session.getAttribute("USER");
-            if (us == null) {
-                response.sendRedirect("index.jsp");
-            } else if (!us.getRole().equals("admin")) {
-               response.sendRedirect("index.jsp");
-            } else { %>
-
-
+        
+         <c:set var="USER" value="${sessionScope.USER}"/>
+         <c:if test="${empty USER}">
+             <jsp:forward page="index.jsp"/>
+         </c:if>
+ 
         <div class="sidebar">
             <h2>Admin Thư viện</h2>
             <a href="#">📚 Quản lý sách</a>

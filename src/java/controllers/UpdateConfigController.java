@@ -42,7 +42,10 @@ public class UpdateConfigController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-
+    SystemConfigDAO dao = new SystemConfigDAO();
+    ArrayList<Config> configList = dao.getAllConfig();
+    request.setAttribute("configList", configList);
+    request.getRequestDispatcher("systemConfig.jsp").forward(request, response);
     } 
 
 

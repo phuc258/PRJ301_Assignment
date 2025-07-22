@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controllers;
 
 import dao.UserDAO;
+import dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import java.util.ArrayList;
 
 public class ManagerUsers extends HttpServlet {
 
@@ -40,39 +40,52 @@ public class ManagerUsers extends HttpServlet {
         String yeucau = request.getParameter("yeucau");
         String emailUser = request.getParameter("emailUser");
         String message = "";
-       if (yeucau.equals("ban")) {
-            banAccByEmail(emailUser,1);
+        if (yeucau.equals("ban")) {
+            banAccByEmail(emailUser, 1);
         } else if (yeucau.equals("moKhoa")) {
-            banAccByEmail(emailUser,0);
+            banAccByEmail(emailUser, 0);
         }
-        
+        String findEmail = (String) request.getSession().getAttribute("findEmail");
+        UserDAO dao = new UserDAO();
+        ArrayList<User> list = dao.findUsersByEmail(findEmail);
+        request.setAttribute("listUser", list);
         request.getRequestDispatcher("QuanliUser.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String yeucau = request.getParameter("yeucau");
+        String emailUser = request.getParameter("emailUser");
+        String message = "";
+        if (yeucau.equals("ban")) {
+            banAccByEmail(emailUser, 1);
+        } else if (yeucau.equals("moKhoa")) {
+            banAccByEmail(emailUser, 0);
+        }
+        String findEmail = (String) request.getSession().getAttribute("findEmail");
+        UserDAO dao = new UserDAO();
+        ArrayList<User> list = dao.findUsersByEmail(findEmail);
+        request.setAttribute("listUser", list);
+        request.getRequestDispatcher("QuanliUser.jsp").forward(request, response);
     }
     private UserDAO dao = new UserDAO();
 
-    public int deleteUserByEmail(String email) {
+    private int deleteUserByEmail(String email) {
         int result = 0;
         result = dao.deleteUserByEmail(email);
         return result;
     }
 
-    public int banAccByEmail(String email,int check) {
+    private int banAccByEmail(String email, int check) {
         int result = 0;
-        result = dao.banAccByEmail(email,check);
+        result = dao.banAccByEmail(email, check);
         return result;
     }
-
-
 
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 
 }
