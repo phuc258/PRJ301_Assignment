@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dao/SystemConfigDAO.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/SearchUserController.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dao/BookDAO.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dao/BorrowRecordDAO.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/systemConfig.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/OverdueBooksController.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/AdminDashboard.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/BookManager.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/Login.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/MainController.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/ManagerUsers.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/mylib/DBUtils.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/DeleteBook.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/Pages/Login.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/editBook.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/UpdateConfigController.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/ThanhToanTienPhat.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/FindUser.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/LogoutController.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/index.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/AddNewBook.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dto/OverdueBook.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dto/Config.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/controllers/SearchBookController.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/update_inventory.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/QuanliUser.jsp</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dto/User.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/src/java/dao/OverdueDAO.java</file>
+            <file>file:/C:/Users/toila/OneDrive/Desktop/PRJ301_Assignment/web/overdue_books.jsp</file>
+        </group>
+    </open-files>
+</project-private>
