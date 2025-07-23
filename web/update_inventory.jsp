@@ -4,8 +4,10 @@
     Author     : toila
 --%>
 
+<%@page import="dao.InventoryLogDAO"%>
 <%@page import="dto.InventoryLog"%>
 <%@page import="dao.BookDAO"%>
+<%@page import="dto.Book"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="dto.Book"%>
@@ -48,6 +50,10 @@
         </style>
     </head>
     <body>
+        <form action="MainController" method="post">
+            <input type="hidden" name="action" value="adminDashboard" />
+            <button class="btn">🏠 Về Dashboard</button>
+        </form> 
 
         <h2>📦 Cập nhật tồn kho sách</h2>
 
@@ -73,12 +79,12 @@
             <form method="post" action="InventoryController">
                 <input type="hidden" name="bookId" value="<%= selectedBook.getId()%>" />
                 <p><strong>Tiêu đề:</strong> <%= selectedBook.getTitle()%></p>
-                <p><strong>Tiêu đề:</strong> <%= selectedBook.getTotal_copies()%></p>
-
-                <label>So Luong Sach:</label>
+                <p><strong>tổng sách :</strong> <%= selectedBook.getTotal_copies()%></p>
+                <p>${requestScope.MESS}</p>
+                <label>Số lượng sách:</label>
                 <input type="number" min="1"  name="quantity" value="" required
                        oninvalid="this.setCustomValidity('Vui lòng nhập số nguyên lớn hơn 0')" 
-                         oninput="this.setCustomValidity('')" />
+                       oninput="this.setCustomValidity('')" />
 
                 <label>Ghi chú:</label>
                 <input type="text" name="note" style="width: 300px;" />
@@ -97,6 +103,11 @@
             </tr>
             <%
                 ArrayList<InventoryLog> logs = (ArrayList<InventoryLog>) request.getAttribute("logs");
+                Book b_e = (Book) request.getAttribute("selectedBook");
+                if (logs == null) {
+                    InventoryLogDAO ld = new InventoryLogDAO();
+                    logs = ld.getLogsByBookId(b_e.getId());
+                }
                 if (logs != null && !logs.isEmpty()) {
                     for (InventoryLog log : logs) {
             %>
@@ -107,7 +118,7 @@
                 <td><%= log.getNote()%></td>
             </tr>
             <% }
-    } else { %>
+            } else { %>
             <tr><td colspan="6"><i>Không có lịch sử cập nhật tồn kho.</i></td></tr>
             <% } %>
         </table>

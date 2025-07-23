@@ -84,7 +84,6 @@
 
         <div class="sidebar">
             <h2>Admin Thư viện</h2>
-            <a href="#">📚 Quản lý sách</a>
             <a href="InventoryController">📚 Inventory</a> <%-- dien gi vao day de su dung chuc nang update inventory --%>
 
             <form action="MainController" method="POST">
