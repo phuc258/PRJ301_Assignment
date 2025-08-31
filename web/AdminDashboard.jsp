@@ -16,7 +16,7 @@
 <html xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Admin</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -84,22 +84,16 @@
 
         <div class="sidebar">
             <h2>Admin Thư viện</h2>
-            <a href="#">📚 Quản lý sách</a>
-            <a href="InventoryController">📚 Inventory</a> <%-- dien gi vao day de su dung chuc nang update inventory --%>
+            <a href="MainController?action=InventoryController">📚 Inventory</a> 
 
             <form action="MainController" method="POST">
                 <input type="hidden" name="action" value="quanliuser" />
                 <input type="submit" value="👤 Quản lý người dùng" />
 
             </form>
-            <a href="BorrowRequestController">📝 Đơn thuê</a>
-            <a href="OverdueBooksController">📝 overdue </a>
-            <form action="MainController" method="POST">
-                <input type="hidden" name="action" value="setupconfig" />
-                <input type="submit" value="⚙️ Cài đặt Config" />
-
-            </form>
-            <a href="AdminStatisticsServlet">⚙️ statis</a>
+            <a href="MainController?action=BorrowRequestController">📝 Đơn thuê</a>
+            <a href="MainController?action=OverdueBooksController">📝 overdue </a>
+            <a href="MainController?action=setupconfig">⚙️ Cài đặt Config</a>
             <a href="LogoutController">🔓 Đăng xuất</a>
 
         </div>
@@ -140,6 +134,7 @@
                     <c:if test="${ empty list}">
                         <jsp:forward page="SearchBookController"/>
                     </c:if>
+                    
                     <c:forEach var="b" items="${list}" varStatus="status">
 
 

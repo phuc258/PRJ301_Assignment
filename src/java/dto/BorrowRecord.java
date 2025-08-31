@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author SE190585
  */
 public class BorrowRecord {
+
     private int Id;
     private int user_id;
     private int book_id;
@@ -29,6 +30,17 @@ public class BorrowRecord {
         this.user_id = user_id;
         this.book_id = book_id;
         this.UserName = UserName;
+        this.BookTitle = BookTitle;
+        this.BorrowDate = BorrowDate;
+        this.DueDate = DueDate;
+        this.ReturnDate = ReturnDate;
+        this.Status = Status;
+    }
+
+    public BorrowRecord(int Id, int user_id, int book_id, String BookTitle, String BorrowDate, String DueDate, String ReturnDate, String Status) {
+        this.Id = Id;
+        this.user_id = user_id;
+        this.book_id = book_id;
         this.BookTitle = BookTitle;
         this.BorrowDate = BorrowDate;
         this.DueDate = DueDate;
@@ -107,5 +119,5 @@ public class BorrowRecord {
     public void setStatus(String Status) {
         this.Status = Status;
     }
-    
+
 }

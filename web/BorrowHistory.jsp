@@ -82,7 +82,7 @@
                                     <table class="table table-striped table-hover">
                                         <thead class="table-dark">
                                             <tr>
-                                                <th class="text-center">#</th>
+                                                <th class="text-center">No:</th>
                                                 <th class="text-center">Book Title</th>
                                                 <th class="text-center">Status</th>
                                                 <th class="text-center">Borrowed</th>
@@ -111,15 +111,15 @@
                                                             </c:choose>
                                                         </td>
                                                         <td class="text-center">
-                                                            <fmt:formatDate value="${i.borrowDate}" pattern="yyyy-MM-dd" />
+                                                            ${i.borrowDate}
                                                         </td>
                                                         <td class="text-center">
-                                                            <fmt:formatDate value="${i.dueDate}" pattern="yyyy-MM-dd" />
+                                                            ${i.dueDate}
                                                         </td>
                                                         <td class="text-center">
                                                             <c:choose>
                                                                 <c:when test="${i.returnDate != null}">
-                                                                    <fmt:formatDate value="${i.returnDate}" pattern="yyyy-MM-dd" />
+                                                                    ${i.returnDate}"
                                                                 </c:when>
                                                                 <c:otherwise>
                                                                     <span class="text-muted">Not returned</span>

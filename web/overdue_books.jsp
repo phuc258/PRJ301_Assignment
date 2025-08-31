@@ -11,8 +11,9 @@
             <button class="btn">🏠 Về Dashboard</button>
         </form>
         <h2>Danh sách sách đã quá hạn</h2>
-        <c:if test="${not empty error}">
-            <div style="color:red;">${error}</div>
+        <c:set var="USER" value="${sessionScope.USER}"/>
+        <c:if test="${empty sessionScope.USER}">
+            <jsp:forward page="index.jsp"/>
         </c:if>
 
         <table border="1" cellpadding="5" cellspacing="0">

@@ -33,10 +33,7 @@
                      data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">                        
                         <a class="nav-link" href="MainController?action=borrowBook">Borrow Cart</a>                        
-                    </nav>
-                    <nav class="sb-sidenav-menu-nested nav">                        
-                        <a class="nav-link" href="MainController?action=borrowProcess">Borrow Process</a>                        
-                    </nav>
+                    </nav>                   
                     <nav class="sb-sidenav-menu-nested nav">                        
                         <a class="nav-link" href="MainController?action=borrowHistory">Borrow History</a>                        
                     </nav>

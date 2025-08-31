@@ -8,13 +8,22 @@
 <%@page import="java.util.List"%>
 <%@page import="dto.BorrowRequest"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Borrrow Requets</title>
     </head>
     <body>
+        <c:set var="USER" value="${sessionScope.USER}"/>
+        <c:if test="${empty sessionScope.USER}">
+            <jsp:forward page="index.jsp"/>
+        </c:if>
+        <form action="MainController" method="post">
+            <input type="hidden" name="action" value="adminDashboard" />
+            <button class="btn">🏠 Về Dashboard</button>
+        </form>
         <h2>Borrow/Return Requests</h2>
         <table border="1">
             <tr>
@@ -32,7 +41,7 @@
                 <td><%= r.getStatus()%></td>
                 <td>
                     <% if (r.getStatus().equals("pending")) {%>
-                    <form method="post" style="display:inline;">
+                    <form method="post" style="display:inline;" action="BorrowRequestController">
                         <input type="hidden" name="requestId" value="<%= r.getId()%>" />
                         <button name="action" value="approve">Approve</button>
                         <button name="action" value="reject">Reject</button>

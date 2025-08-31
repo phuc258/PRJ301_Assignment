@@ -21,8 +21,10 @@
         <c:if test="${empty sessionScope.USER}">
             <jsp:forward page="index.jsp"/>
         </c:if>
-        <a href="MainController?action=adminDashboard">Home</a>
-        <form method="post" action="MainController">
+        <form action="MainController" method="post">
+            <input type="hidden" name="action" value="adminDashboard" />
+            <button class="btn">🏠 Về Dashboard</button>
+        </form>         <form method="post" action="MainController">
             <input type="text" name="findEmail" value="${sessionScope.findEmail}" />
             <input type="submit" value="Find User" name="action" />
         </form>

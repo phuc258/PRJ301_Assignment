@@ -31,8 +31,7 @@ public class BorrowHistoryController extends HttpServlet {
                 return;
             }
             BorrowRecordDAO dao = new BorrowRecordDAO();
-            ArrayList<BorrowRecord> history = dao.getBorrowHistoryByUserId(user.getId());
-            System.out.println("User ID: " + user.getId());
+            ArrayList<BorrowRecord> history = dao.getBorrowHistoryByUserId(user.getId());           
             
 
             request.setAttribute("HISTORY", history);

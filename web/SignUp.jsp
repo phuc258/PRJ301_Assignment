@@ -26,14 +26,14 @@
                                             <input type="hidden" name="action" value="Register">
                                             <div class="mb-3">
                                                 <div class="form-floating">
-                                                    <input value="${user.name}" class="form-control" id="inputName" type="text" placeholder="Enter your Name" name="name" required />
+                                                    <input value="${user.name}" class="form-control" id="inputName" type="text" placeholder="Enter your Name" name="name" minlength="1" required />
                                                     <label for="inputName">Name</label>
                                                 </div>
                                             </div>
 
                                             <div class="mb-3">
                                                 <div class="form-floating">
-                                                    <input value="${user.email}" class="form-control" id="inputEmail" type="email" name="txtemail" placeholder="Enter your email" required/>
+                                                    <input value="${user.email}" class="form-control" id="inputEmail" type="email" name="txtemail" placeholder="Enter your email" minlength="1" required/>
                                                     <label for="inputEmail">Email</label>
                                                 </div>
                                             </div>                                         

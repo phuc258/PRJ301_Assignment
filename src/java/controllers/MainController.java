@@ -36,6 +36,9 @@ public class MainController extends HttpServlet {
     private static final String INVENTORY_UPDATE = "InventoryController";
     private static final String THANH_TOAN_TIEN_PHAT = "ThanhToanTienPhat";
     private static final String BORROW_BOOK_CONTROLLER = "BorrowBookController";
+    private static final String INVENTORY_CONTROLLER = "InventoryController";
+    private static final String BORROW_REQUEST_CONTROLLER = "BorrowRequestController";
+    private static final String OVERDUE_BOOK_CONTROLLER = "OverdueBooksController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -123,6 +126,9 @@ public class MainController extends HttpServlet {
                     url = "Register";
                     break;
                 case "borrowBook":
+                    url = "BorrowCartController";
+                    break;                    
+                case "borrow":
                     url = BORROW_BOOK_CONTROLLER;
                     break;
                 case "borrowHistory":
@@ -130,6 +136,15 @@ public class MainController extends HttpServlet {
                     break;
                 case "cancelBorrowRequest":
                     url = "CancelBorrowRequestController";
+                    break;
+                case "InventoryController":
+                    url = INVENTORY_CONTROLLER;
+                    break;
+                case "BorrowRequestController":
+                    url = BORROW_REQUEST_CONTROLLER;
+                    break;
+                case "OverdueBooksController":
+                    url = OVERDUE_BOOK_CONTROLLER;
                     break;
                 default:
                     url = ERROR;

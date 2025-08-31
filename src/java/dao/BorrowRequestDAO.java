@@ -24,10 +24,8 @@ public class BorrowRequestDAO {
         this.conn = conn;
     }
 
-    public BorrowRequestDAO() {        
+    public BorrowRequestDAO() {
     }
-
-   
 
     public ArrayList<BorrowRequest> getAllRequests() throws Exception {
         ArrayList<BorrowRequest> result = new ArrayList<>();
@@ -36,19 +34,19 @@ public class BorrowRequestDAO {
             cn = DBUtils.getConnection();
             if (cn != null) {
                 String sql = "SELECT br.id, u.name AS userName, b.title AS bookTitle, br.status, br.request_date "
-                + "FROM book_requests br "
-                + "JOIN users u ON br.user_id = u.id "
-                + "JOIN books b ON br.book_id = b.id";
+                        + "FROM book_requests br "
+                        + "JOIN users u ON br.user_id = u.id "
+                        + "JOIN books b ON br.book_id = b.id";
                 PreparedStatement ps = cn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
-                while (rs.next()) {                    
-                     BorrowRequest r = new BorrowRequest();
-                r.setId(rs.getInt("id"));
-                r.setUserName(rs.getString("userName"));
-                r.setBookTitle(rs.getString("bookTitle"));
-                r.setStatus(rs.getString("status"));
-                r.setRequestDate(rs.getString("request_date"));
-                result.add(r);
+                while (rs.next()) {
+                    BorrowRequest r = new BorrowRequest();
+                    r.setId(rs.getInt("id"));
+                    r.setUserName(rs.getString("userName"));
+                    r.setBookTitle(rs.getString("bookTitle"));
+                    r.setStatus(rs.getString("status"));
+                    r.setRequestDate(rs.getString("request_date"));
+                    result.add(r);
                 }
 
             }
@@ -130,20 +128,19 @@ public class BorrowRequestDAO {
             throw new Exception("Lỗi khi xử lý yêu cầu mượn/trả: " + e.getMessage());
         }
     }
-    
+
     public List<BorrowRequest> getBorrowRequestsByUserId(int userId) throws SQLException, ClassNotFoundException {
         List<BorrowRequest> list = new ArrayList<>();
         String sql = "SELECT br.id, u.name AS userName, b.title AS bookTitle, br.status, br.request_date "
-                   + "FROM book_requests br "
-                   + "JOIN users u ON br.user_id = u.id "
-                   + "JOIN books b ON br.book_id = b.id "
-                   + "WHERE br.user_id = ?";
+                + "FROM book_requests br "
+                + "JOIN users u ON br.user_id = u.id "
+                + "JOIN books b ON br.book_id = b.id "
+                + "WHERE br.user_id = ?";
 
-        try (Connection conn = DBUtils.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            
+        try ( Connection conn = DBUtils.getConnection();  PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, userId);
-            try (ResultSet rs = ps.executeQuery()) {
+            try ( ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     BorrowRequest br = new BorrowRequest();
                     br.setId(rs.getInt("id"));
@@ -157,13 +154,68 @@ public class BorrowRequestDAO {
         }
         return list;
     }
-    
-    public void deleteRequestById(int requestId) throws SQLException, ClassNotFoundException {
-    String sql = "DELETE FROM book_requests WHERE id = ?";
-    try (Connection conn = DBUtils.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-        ps.setInt(1, requestId);
-        ps.executeUpdate();
+   
+    public int deleteRequestById(int id) {
+        int result = 0;
+        Connection cn = null;
+        try {           
+            cn = DBUtils.getConnection();
+            if (cn != null) {                
+                String sql = "delete from [dbo].[book_requests] where id = ?";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setInt(1, id);
+                result = ps.executeUpdate();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
-}
+    
+    public BorrowRequest getById(int id) throws Exception {
+        BorrowRequest result = null;
+        Connection cn = null;
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                String sql = "SELECT br.id, u.name AS userName, b.title AS bookTitle, br.status, br.request_date "
+                + "FROM book_requests br "
+                + "JOIN users u ON br.user_id = u.id "
+                + "JOIN books b ON br.book_id = b.id where br.id = ?";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {                    
+                     BorrowRequest r = new BorrowRequest();
+                r.setId(rs.getInt("id"));
+                r.setUserName(rs.getString("userName"));
+                r.setBookTitle(rs.getString("bookTitle"));
+                r.setStatus(rs.getString("status"));
+                r.setRequestDate(rs.getString("request_date"));
+                result = r;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

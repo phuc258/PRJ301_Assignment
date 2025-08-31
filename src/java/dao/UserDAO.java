@@ -52,6 +52,41 @@ public class UserDAO {
         }
         return result;
     }
+    public User getUserByName(String email) {
+        ArrayList<User> list = new ArrayList<>();
+        User result = null;
+        Connection cn = null;
+        try {
+            //bc1: ket noi app voi sqlserver
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                //bc2: viet query va execute
+                String sql = "select id,name,[email],[password],[role],[status] from [dbo].[users]"
+                        + "where name ='" + email + "'";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("password"), rs.getString("role"), rs.getString("status")));
+                }
+                for (User u : list) {
+                    if (u.getName().equals(email)) {
+                        result = u;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 
     //ham nay de insert a new user vao bang User
     //input: name,email,password => vi id la identity, role='user',status

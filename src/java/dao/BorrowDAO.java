@@ -20,22 +20,18 @@ import mylib.DBUtils;
 public class BorrowDAO {
 
     public void insertBookRequest(int bookId, int userId) throws SQLException, ClassNotFoundException {
-        Connection cn = null;
-        PreparedStatement st = null;
+        Connection cn = null;      
 
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String sql = "INSERT INTO book_requests (book_id, user_id, request_date, status) VALUES (?, ?, GETDATE(), 'Pending')";
-                st = cn.prepareStatement(sql);
+                String sql = "INSERT INTO book_requests (book_id, user_id, request_date, status) VALUES (?, ?, GETDATE(), 'pending')";
+                PreparedStatement st = cn.prepareStatement(sql);
                 st.setInt(1, bookId);
                 st.setInt(2, userId);
                 st.executeUpdate();
             }
-        } finally {
-            if (st != null) {
-                st.close();
-            }
+        } finally {            
             if (cn != null) {
                 cn.close();
             }
@@ -51,7 +47,7 @@ public class BorrowDAO {
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String sql = "SELECT br.id, u.name, b.title, br.status, br.request_date "
+                String sql = "SELECT br.id, u.name, b.title, br.status, br.borrow_date "
                         + "FROM borrow_records br "
                         + "JOIN users u ON br.user_id = u.id "
                         + "JOIN books b ON br.book_id = b.id "
@@ -63,10 +59,10 @@ public class BorrowDAO {
                 while (rs.next()) {
                     BorrowRequest req = new BorrowRequest();
                     req.setId(rs.getInt("id"));
-                    req.setUserName(rs.getString("name"));
-                    req.setBookTitle(rs.getString("title"));
+                    req.setUserName(rs.getString("userName"));
+                    req.setBookTitle(rs.getString("bookTitle"));
                     req.setStatus(rs.getString("status"));
-                    req.setRequestDate(rs.getString("request_date"));
+                    req.setRequestDate(rs.getString("requestDate"));
                     list.add(req);
                 }
             }

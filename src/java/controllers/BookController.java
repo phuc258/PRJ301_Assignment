@@ -42,24 +42,24 @@ public class BookController extends HttpServlet {
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
 //        String name = request.getParameter("BookName");
-  String name = request.getParameter("txtsearch");
+        String name = request.getParameter("txtsearch");
         BookDAO bd = new BookDAO();
         ArrayList<Book> list = bd.getListBookByName(name);
 //        request.setAttribute("result",beforeFind);
 //        request.getRequestDispatcher("ResultBook.jsp").forward(request, response);
         if (list != null && !list.isEmpty()) {
-               for (Book book : list) {
-                    out.print("<div>");
-                    out.print("<form>");
-                    out.print("<br>Title: " + book.getTitle());
-                    out.print("<br>Author: " + book.getAuthor());
-                    out.print("<br>Available copy: " + book.getAvailable_copies());
-                    out.print("<br>ISBN: " + book.getIsbn());
-                    if (book.getAvailable_copies() > 0) {
-                        out.print("<input type='submit' value='request borrow book'>");
-                    }
-                    out.print("</form></div>");
-               }
+            for (Book book : list) {
+                out.print("<div>");
+                out.print("<form>");
+                out.print("<br>Title: " + book.getTitle());
+                out.print("<br>Author: " + book.getAuthor());
+                out.print("<br>Available copy: " + book.getAvailable_copies());
+                out.print("<br>ISBN: " + book.getIsbn());
+                if (book.getAvailable_copies() > 0) {
+                    out.print("<input type='submit' value='request borrow book'>");
+                }
+                out.print("</form></div>");
+            }
         }
     }
 

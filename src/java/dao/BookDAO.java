@@ -29,12 +29,22 @@ public class BookDAO {
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String sql = "select id,[title],[author],[category],[isbn],[published_year],[total_copies],[available_copies],[status]from [dbo].[books] where title like '%" + name + "%'";
+                String sql = "select id,[title],[author],[category],[isbn],[published_year],[total_copies],[available_copies],[status] from [dbo].[books] where title like ?";
 
                 PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setString(1, "%"+name+"%");
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    result.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getString("isbn"), rs.getString("category"), rs.getInt("published_year"), rs.getInt("total_copies"), rs.getInt("available_copies"), rs.getString("status")));
+                    
+                    result.add(new Book(rs.getInt("id"),
+                            rs.getString("title"), 
+                            rs.getString("author"), 
+                            rs.getString("isbn"),
+                            rs.getString("category"), 
+                            rs.getInt("published_year"), 
+                            rs.getInt("total_copies"),
+                            rs.getInt("available_copies"), 
+                            rs.getString("status")));
                 }
             }
         } catch (Exception e) {
@@ -397,6 +407,70 @@ public class BookDAO {
                             rs.getInt("id"), rs.getString("title"), rs.getString("author"),
                             rs.getString("isbn"), rs.getString("category"), rs.getInt("published_year"),
                             rs.getInt("total_copies"), rs.getInt("available_copies"), rs.getString("status"), rs.getString("url")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    
+//    public ArrayList<Book> getListBookByName(String title) {
+//        ArrayList<Book> result = new ArrayList<>();
+//        Connection cn = null;
+//        try {
+//            cn = DBUtils.getConnection();
+//            if (cn != null) {
+//                String sql = "SELECT id, title, author, isbn, category, published_year, total_copies, available_copies, status, url "
+//                        + "FROM books WHERE author LIKE ?";
+//                PreparedStatement ps = cn.prepareStatement(sql);
+//                ps.setString(1, "%" + author + "%");
+//                ResultSet rs = ps.executeQuery();
+//                while (rs.next()) {
+//                    result.add(new Book(
+//                            rs.getInt("id"), rs.getString("title"), rs.getString("author"),
+//                            rs.getString("isbn"), rs.getString("category"), rs.getInt("published_year"),
+//                            rs.getInt("total_copies"), rs.getInt("available_copies"), rs.getString("status"), rs.getString("url")));
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (cn != null) {
+//                    cn.close();
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return result;
+//    }
+    
+    public Book getByName(String title) {
+        Book result = null;
+        Connection cn = null;
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                String sql = "SELECT id, title, author, isbn, category, published_year, total_copies, available_copies, status "
+                        + "FROM books WHERE title =?";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setString(1, title);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                  result=  new Book(
+                            rs.getInt("id"), rs.getString("title"), rs.getString("author"),
+                            rs.getString("isbn"), rs.getString("category"), rs.getInt("published_year"),
+                            rs.getInt("total_copies"), rs.getInt("available_copies"), rs.getString("status"));
                 }
             }
         } catch (Exception e) {

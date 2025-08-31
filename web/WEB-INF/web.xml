@@ -4,6 +4,9 @@
         <servlet-name>MainController</servlet-name>
         <servlet-class>controllers.MainController</servlet-class>
     </servlet>
+    <listener>
+        <listener-class>listener.Notice</listener-class>
+    </listener>
     <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>controllers.LoginController</servlet-class>
@@ -67,10 +70,6 @@
     <servlet>
         <servlet-name>BorrowHistoryController</servlet-name>
         <servlet-class>controllers.BorrowHistoryController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>CancelBorrowRequestController</servlet-name>
-        <servlet-class>controllers.CancelBorrowRequestController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
@@ -140,10 +139,6 @@
         <servlet-name>BorrowHistoryController</servlet-name>
         <url-pattern>/BorrowHistoryController</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CancelBorrowRequestController</servlet-name>
-        <url-pattern>/CancelBorrowRequestController</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -152,4 +147,8 @@
     <welcome-file-list>
         <welcome-file>MainController</welcome-file>
     </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/Error.jsp</location>
+    </error-page>
 </web-app>

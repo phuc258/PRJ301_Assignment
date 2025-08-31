@@ -29,15 +29,13 @@ public class BorrowCartController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("USER");
-
             if (user == null) {
                 response.sendRedirect("Login.jsp");
                 return;
             }
 
             BorrowRequestDAO dao = new BorrowRequestDAO();
-            List<BorrowRequest> requests = dao.getBorrowRequestsByUserId(user.getId());
-            System.out.println("User ID: " + user.getId());
+            List<BorrowRequest> requests = dao.getBorrowRequestsByUserId(user.getId());           
             
 
             request.setAttribute("BORROW_REQUESTS", requests);

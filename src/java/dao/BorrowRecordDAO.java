@@ -130,7 +130,7 @@ public class BorrowRecordDAO {
         try {
             cn = DBUtils.getConnection();
             if (cn != null) {
-                String sql = "Update borrow_records set status = ? where id = ?";
+                String sql = "Update borrow_records set status = ?,return_date = GETDATE() where id = ?";
                 PreparedStatement ps = cn.prepareStatement(sql);
                 ps.setString(1, status);
                 ps.setInt(2, id);
@@ -206,22 +206,22 @@ public class BorrowRecordDAO {
                 String sql = "SELECT br.id, br.book_id, b.title, br.borrow_date, br.due_date, br.return_date, br.status\n"
                         + "FROM borrow_records br\n"
                         + "JOIN books b ON br.book_id = b.id\n"
-                        + "WHERE br.user_id = 7\n"
+                        + "WHERE br.user_id = ?\n"
                         + "ORDER BY br.borrow_date DESC";
 
                 PreparedStatement ps = cn.prepareStatement(sql);
-                ps.setInt(1,userId );
+                ps.setInt(1, userId);
                 ResultSet rs = ps.executeQuery();
-                
+
                 while (rs.next()) {
                     int id = rs.getInt("id");
-                    int book_id=  rs.getInt("book_id");
-                    String title=  rs.getString("title");
+                    int book_id = rs.getInt("book_id");
+                    String title = rs.getString("title");
                     String borrow_date = rs.getString("borrow_date");
                     String due_date = rs.getString("due_date");
                     String return_date = rs.getString("return_date");
                     String status = rs.getString("status");
-                    BorrowRecord brd = new BorrowRecord(id, userId, book_id, due_date, title, borrow_date, due_date, return_date, status);
+                    BorrowRecord brd = new BorrowRecord(id, userId, book_id, title, borrow_date, due_date, return_date, status);
                     result.add(brd);
                 }
             }
@@ -238,4 +238,36 @@ public class BorrowRecordDAO {
         }
         return result;
     }
+
+    public void insert(int user_id, int book_id, String borrow_date) {
+
+        Connection cn = null;
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                String sql = "INSERT INTO borrow_records (user_id, book_id, borrow_date, due_date, return_date, status)\n"
+                        + "VALUES (?, ?, ?, DATEADD(DAY, ?, ?), NULL, 'borrowed');";
+                PreparedStatement ps = cn.prepareStatement(sql);
+                ps.setInt(1, user_id);
+                ps.setInt(2, book_id);
+                ps.setString(3, borrow_date);
+                ps.setInt(4, laySoNgayChoThue());
+                ps.setString(5, borrow_date);
+                int rs = ps.executeUpdate();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) {
+                    cn.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+ 
 }

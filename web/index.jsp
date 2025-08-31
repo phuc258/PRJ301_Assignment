@@ -33,11 +33,11 @@
 
                     <!-- Ô nhập từ khóa -->
                     <input name="keyword" class="form-control" type="text" placeholder="Search ..."
-                           aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                           aria-label="Search for..." aria-describedby="btnNavbarSearch" value="${param.keyword}" />
 
                     <!-- Select để chọn loại tìm kiếm -->
                     <select name="filter" class="form-select">
-                        <option value="name">Name</option>
+                        <option value="name">Title</option>
                         <option value="author">Author</option>
                         <option value="category">Category</option>
                     </select>
@@ -111,7 +111,7 @@
                                                         </c:when>
                                                         <c:otherwise>
                                                             <form action="MainController" method="post">
-                                                                <input type="hidden" name="action" value="borrowBook" />
+                                                                <input type="hidden" name="action" value="borrow" />
                                                                 <input type="hidden" name="bookId" value="${i.id}" />
                                                                 <button type="submit" class="btn btn-primary btn-sm mt-2"
                                                                         ${i.available_copies > 0 ? "" : "disabled"}>

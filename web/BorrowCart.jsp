@@ -85,8 +85,7 @@
                                                 <th class="text-center"><span>ID</span></th>
                                                 <th class="text-center"><span>Book</span></th>
                                                 <th class="text-center"><span>Status</span></th>
-                                                <th class="text-center"><span>Request Date</span></th>
-                                                <th class="text-center"><span>Action</span></th>
+                                                <th class="text-center"><span>Request Date</span></th>                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -96,13 +95,13 @@
                                                     <td class="text-center" style="font-weight: 500">${i.bookTitle}</td>
                                                     <td class="text-center">
                                                         <c:choose>
-                                                            <c:when test="${i.status eq 'Pending'}">
+                                                            <c:when test="${i.status eq 'pending'}">
                                                                 <span class="text-warning">${i.status}</span>
                                                             </c:when>
-                                                            <c:when test="${i.status eq 'Approved'}">
+                                                            <c:when test="${i.status eq 'approved'}">
                                                                 <span class="text-success">${i.status}</span>
                                                             </c:when>
-                                                            <c:when test="${i.status eq 'Rejected'}">
+                                                            <c:when test="${i.status eq 'rejected'}">
                                                                 <span class="text-danger">${i.status}</span>
                                                             </c:when>
                                                             <c:otherwise>
@@ -111,17 +110,9 @@
                                                         </c:choose>
                                                     </td>
                                                     <td class="text-center">
-                                                        <fmt:formatDate value="${i.requestDate}" pattern="yyyy-MM-dd" />
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <c:if test="${i.status eq 'Pending'}">
-                                                            <form method="post" action="MainController" onsubmit="return confirm('Cancel this request?');">
-                                                                <input type="hidden" name="action" value="cancelBorrowRequest" />
-                                                                <input type="hidden" name="requestId" value="${i.id}" />
-                                                                <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
-                                                            </form>
-                                                        </c:if>
-                                                    </td>
+                                                        ${i.requestDate}"
+                                                    </td>                                                   
+                                                    
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -144,17 +135,17 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
         <script>
-                        window.addEventListener('DOMContentLoaded', event => {
-                            const sidebarToggle = document.body.querySelector('#sidebarToggle');
-                            if (sidebarToggle) {
-                                sidebarToggle.addEventListener('click', event => {
-                                    event.preventDefault();
-                                    document.body.classList.toggle('sb-sidenav-toggled');
-                                    localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
-                                });
-                            }
+                                                                window.addEventListener('DOMContentLoaded', event => {
+                                                                    const sidebarToggle = document.body.querySelector('#sidebarToggle');
+                                                                    if (sidebarToggle) {
+                                                                        sidebarToggle.addEventListener('click', event => {
+                                                                            event.preventDefault();
+                                                                            document.body.classList.toggle('sb-sidenav-toggled');
+                                                                            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+                                                                        });
+                                                                    }
 
-                        });
+                                                                });
         </script>
 
     </body>

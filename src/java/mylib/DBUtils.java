@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class DBUtils {
 //    Do not change this code
-    private static final String DB_NAME = "library_system";
+    private static final String DB_NAME = "DB_PRJ";
     private static final String DB_USER_NAME = "SA";
     private static final String DB_PASSWORD = "12345";
 

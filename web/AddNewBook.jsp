@@ -14,6 +14,7 @@
         <title>Add Book</title>
     </head>
     <body>
+        
       <c:set var="USER" value="${sessionScope.USER}"/>
         <c:if test="${empty sessionScope.USER}">
             <jsp:forward page="index.jsp"/>
